@@ -7,6 +7,7 @@ import common from '../../common';
 import { preenUserHistory } from './preening';
 import { sleep } from './sleep';
 import { revealMysteryItems } from './payments/subscriptions';
+import processTeamsCron from '../../scripts/team-cron';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
@@ -211,6 +212,7 @@ export async function cron (options = {}) {
   const {
     user, tasksByType, analytics, now = new Date(), daysMissed, timezoneUtcOffsetFromUserPrefs,
   } = options;
+  await processTeamsCron();
   let _progress = { down: 0, up: 0, collectedItems: 0 };
 
   // Record pre-cron values of HP and MP to show notifications later
