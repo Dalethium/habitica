@@ -75,7 +75,7 @@ COPY --from=build /usr/src/habitica/config.json /var/lib/habitica/config.json
 COPY --from=build /usr/src/habitica/scripts/team-cron.js /var/lib/habitica/scripts/team-cron.js
 
 # Install Cron
-RUN apt-get update && apt-get install -y cron && npm install -g
+RUN apt-get update && apt-get install -y cron && npm install -g lodash
 
 # Add Cron job
 COPY ./cronjob /etc/cron.d/cronjob
