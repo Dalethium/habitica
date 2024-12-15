@@ -1,2 +1,2 @@
 # Run the Team Cron script every 15 minutes to account for more obscure timezones
-0/15 * * * * /usr/local/bin/node /var/lib/habitica/scripts/team-cron.js
+0,15,30,45 */1 * * * /usr/local/bin/node /var/lib/habitica/scripts/team-cron.js
