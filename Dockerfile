@@ -72,7 +72,15 @@ COPY --from=build /usr/src/habitica/website/ /var/lib/habitica/website/
 COPY --from=build /usr/src/habitica/package.json /var/lib/habitica/package.json
 COPY --from=build /usr/src/habitica/config.json /var/lib/habitica/config.json
 
-CMD ["node", "/var/lib/habitica/website/transpiled-babel/index.js"]
+# Install Cron
+RUN apt-get update && apt-get install -y cron
+
+# Add Cron job
+COPY ./cronjob /etc/cron.d/cronjob
+RUN chmod 0644 /etc/cron.d/cronjob
+RUN crontab /etc/cron.d/cronjob
+
+CMD ["sh", "-c", "cron && node /var/lib/habitica/website/transpiled-babel/index.js"]
 
 
 
